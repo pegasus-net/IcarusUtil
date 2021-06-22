@@ -1,2 +1,2 @@
-include ':app'
+include ':pegasus'
 rootProject.name = "utils"
