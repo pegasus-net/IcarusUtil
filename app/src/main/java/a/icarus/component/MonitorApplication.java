@@ -64,14 +64,14 @@ public class MonitorApplication extends Application implements AppFrontBackHelpe
     }
 
     @Override
-    public void onFront(Activity activity) {
+    public final void onFront(Activity activity) {
         if (!onFrontIgnore(activity)) {
             appBackgroundToFront(activity);
         }
     }
 
     @Override
-    public void onBack(Activity activity) {
+    public final void onBack(Activity activity) {
         appFrontToBackground(activity);
     }
 }
