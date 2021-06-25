@@ -1,17 +1,20 @@
 package a.icarus.component;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
 @SuppressWarnings("unused")
 abstract public class BaseFragment extends Fragment {
 
@@ -50,6 +53,10 @@ abstract public class BaseFragment extends Fragment {
         initListener();
     }
 
+    protected final <T extends View> T findViewById(@IdRes int id) {
+        return rootView.findViewById(id);
+    }
+
     protected abstract @LayoutRes
     int setLayout();
 
@@ -59,4 +66,5 @@ abstract public class BaseFragment extends Fragment {
 
     protected void initListener() {
     }
+
 }

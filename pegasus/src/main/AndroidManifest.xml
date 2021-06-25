@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="a.icarus">
-    <application>
 
+    <application>
+        <activity android:name=".test.TestActivity" />
+        <provider
+            android:name=".utils.FileProviderSupport"
+            android:authorities="a.icarus.file_provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 </manifest>

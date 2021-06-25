@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 @SuppressWarnings("unused")
 public abstract class BaseDialog extends Dialog {
@@ -34,7 +35,21 @@ public abstract class BaseDialog extends Dialog {
         init();
     }
 
+
     abstract protected void init();
+
+    public BaseDialog setNegativeButton(@IdRes int resID) {
+        setViewOnClickListener(resID, v -> dismiss());
+        return this;
+    }
+
+    public BaseDialog setPositiveButton(@IdRes int resID, OnPositiveListener listener) {
+        setViewOnClickListener(resID, v -> {
+            listener.click(v);
+            dismiss();
+        });
+        return this;
+    }
 
     @Override
     public void setContentView(int layoutResID) {
@@ -47,9 +62,6 @@ public abstract class BaseDialog extends Dialog {
         view.setOnClickListener(listener);
     }
 
-    protected void setCancelView(@IdRes int resID) {
-        setViewOnClickListener(resID, v -> dismiss());
-    }
 
     protected TextView findTextView(@IdRes int resID) {
         return rootView.findViewById(resID);
@@ -61,5 +73,9 @@ public abstract class BaseDialog extends Dialog {
 
     protected Button findButtonView(@IdRes int resID) {
         return rootView.findViewById(resID);
+    }
+
+    public interface OnPositiveListener {
+        void click(View v);
     }
 }
