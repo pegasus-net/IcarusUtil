@@ -46,7 +46,7 @@ abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends 
         }
         VH holder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(layoutId, parent);
+            convertView = LayoutInflater.from(context).inflate(layoutId, parent,false);
             holder = onCreateViewHolder(convertView);
             convertView.setTag(holder);
         } else {
