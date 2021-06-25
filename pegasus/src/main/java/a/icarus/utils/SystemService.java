@@ -2,17 +2,14 @@ package a.icarus.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.os.Environment;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.StatFs;
 
-import java.io.File;
-
-import a.icarus.component.Icarus;
+import java.util.List;
 
 @SuppressWarnings("unused")
-public class SystemUtil {
+public class SystemService {
 
     public static long getAvailableMemory(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -27,17 +24,29 @@ public class SystemUtil {
         manager.getMemoryInfo(info);
         return info.totalMem;
     }
-
-    public static long getAvailableBytes() {
-        File path = Environment.getDataDirectory();
-        StatFs stat = new StatFs(path.getPath());
-        return stat.getAvailableBytes();
+    public static boolean isServiceRunning(Context context, String serviceName) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningServiceInfo> serviceInfoList = manager.getRunningServices(200);
+        if (serviceInfoList.size() <= 0) {
+            return false;
+        }
+        for (ActivityManager.RunningServiceInfo info : serviceInfoList) {
+            if (info.service.getClassName().equals(serviceName)) {
+                return true;
+            }
+        }
+        return false;
     }
-
-    public static long getTotalBytes() {
-        File path = Environment.getExternalStorageDirectory();
-        StatFs stat = new StatFs(path.getPath());
-        return stat.getTotalBytes();
+    public static String getVersionName(Context context) {
+        String versionName = "";
+        try {
+            versionName = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0)
+                    .versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionName;
     }
 
     public static void runOnUiThread(Runnable runnable) {

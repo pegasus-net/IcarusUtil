@@ -36,8 +36,8 @@ public class CommandUtil {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            StreamUtil.close(successReader);
-            StreamUtil.close(errorReader);
+            Recycle.close(successReader);
+            Recycle.close(errorReader);
             if (process != null) {
                 process.destroy();
             }

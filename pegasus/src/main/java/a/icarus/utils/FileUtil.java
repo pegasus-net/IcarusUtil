@@ -2,13 +2,11 @@ package a.icarus.utils;
 
 import android.net.Uri;
 import android.os.Build;
-
-import androidx.core.content.FileProvider;
+import android.os.Environment;
+import android.os.StatFs;
 
 import java.io.File;
 import java.io.IOException;
-
-import a.icarus.component.Icarus;
 
 @SuppressWarnings("unused")
 public class FileUtil {
@@ -91,5 +89,17 @@ public class FileUtil {
             e.printStackTrace();
         }
         return getUri(file);
+    }
+
+    public static long getAvailableBytes() {
+        File path = Environment.getDataDirectory();
+        StatFs stat = new StatFs(path.getPath());
+        return stat.getAvailableBytes();
+    }
+
+    public static long getTotalBytes() {
+        File path = Environment.getExternalStorageDirectory();
+        StatFs stat = new StatFs(path.getPath());
+        return stat.getTotalBytes();
     }
 }

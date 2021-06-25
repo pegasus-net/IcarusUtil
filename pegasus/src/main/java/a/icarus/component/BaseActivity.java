@@ -8,10 +8,10 @@ import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import a.icarus.utils.SystemUiUtil;
+import a.icarus.utils.WindowUtil;
 
 @SuppressWarnings("unused")
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity  {
     protected Application application;
     protected Window mWindow;
     protected View decorView;
@@ -33,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void initTheme() {
-        SystemUiUtil.setTranslucent(this);
+        WindowUtil.setTranslucent(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
@@ -50,4 +50,5 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         super.onDestroy();
     }
+
 }

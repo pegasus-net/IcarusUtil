@@ -1,2 +1,7 @@
 <resources>
+    <string name="app_name">APP</string>
+    <string name="test_s">测试文本</string>
+    <string name="test_m">测试文本测试文本v</string>
+    <string name="test_l">测试文本测试文本测试文本</string>
+    <string name="test_ex">测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本</string>
 </resources>

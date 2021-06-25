@@ -1,8 +1,8 @@
 package a.icarus.utils;
 
-public interface CastUtils {
+public class Cast {
     @SuppressWarnings("unchecked")
-    static <T> T cast(Object object) {
+    public static <T> T cast(Object object) {
         return (T) object;
     }
 }

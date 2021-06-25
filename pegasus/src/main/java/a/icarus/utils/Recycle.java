@@ -4,7 +4,7 @@ import java.io.Closeable;
 import java.io.IOException;
 
 @SuppressWarnings("unused")
-public class StreamUtil {
+public class Recycle {
     public static void close(Closeable closeable) {
         try {
             if (closeable != null) {

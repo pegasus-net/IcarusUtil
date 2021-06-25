@@ -1,15 +1,10 @@
 package a.icarus.utils;
 
-import android.content.Context;
 import android.os.Handler;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.logging.LogRecord;
-
-import a.icarus.component.Icarus;
 
 @SuppressWarnings("unused")
 public class ToastUtil {

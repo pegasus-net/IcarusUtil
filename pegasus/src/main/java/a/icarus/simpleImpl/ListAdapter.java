@@ -11,7 +11,7 @@ import java.util.List;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
-import a.icarus.utils.CastUtils;
+import a.icarus.utils.Cast;
 
 @SuppressWarnings("unused")
 abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends BaseAdapter {
@@ -50,7 +50,7 @@ abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends 
             holder = onCreateViewHolder(convertView);
             convertView.setTag(holder);
         } else {
-            holder = CastUtils.cast(convertView.getTag());
+            holder = Cast.cast(convertView.getTag());
         }
         onBindViewHolder(holder, list.get(position));
         return convertView;

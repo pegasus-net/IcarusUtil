@@ -23,4 +23,5 @@ public class StringUtil {
     public static String format(String format, Object... args) {
         return String.format(Locale.CHINA, format, args);
     }
+
 }

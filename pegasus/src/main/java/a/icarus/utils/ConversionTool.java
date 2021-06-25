@@ -1,9 +1,5 @@
 package a.icarus.utils;
 
-import android.content.Context;
-
-import a.icarus.component.Icarus;
-
 @SuppressWarnings("unused")
 public class ConversionTool {
     public static int dp2px(float dp) {
@@ -18,5 +14,17 @@ public class ConversionTool {
 
     public static int float2int(float f) {
         return (int) (f + 0.5f);
+    }
+
+    public static String bytes2HexString(byte[] bytes) {
+        StringBuilder builder = new StringBuilder();
+        for (byte b : bytes) {
+            String s = Integer.toHexString(b & 0xFF);
+            if (s.length() < 2) {
+                builder.append("0");
+            }
+            builder.append(s);
+        }
+        return builder.toString();
     }
 }

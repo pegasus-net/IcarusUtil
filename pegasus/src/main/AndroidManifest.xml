@@ -3,7 +3,7 @@
     package="a.icarus">
 
     <application>
-        <activity android:name=".test.TestActivity" />
+        <activity android:name=".simpleImpl.TestActivity" />
         <provider
             android:name=".utils.FileProviderSupport"
             android:authorities="a.icarus.file_provider"

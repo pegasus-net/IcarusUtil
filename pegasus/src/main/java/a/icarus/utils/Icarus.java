@@ -1,4 +1,4 @@
-package a.icarus.component;
+package a.icarus.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

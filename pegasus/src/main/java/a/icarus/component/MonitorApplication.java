@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import a.icarus.utils.AppFrontBackHelper;
+import a.icarus.utils.Icarus;
 
 @SuppressWarnings("unused")
 public class MonitorApplication extends Application implements AppFrontBackHelper.OnAppStatusListener {

@@ -1,9 +1,10 @@
-package a.icarus.component;
+package a.icarus.simpleImpl;
 
 import android.util.Log;
 import android.view.View;
 
 import a.icarus.R;
+import a.icarus.component.BaseFragment;
 
 @SuppressWarnings("unused")
 public class ColorFragment extends BaseFragment {
