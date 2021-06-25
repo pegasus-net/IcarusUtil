@@ -1,4 +1,4 @@
-package a.icarus.simpleImpl;
+package a.icarus.impl;
 
 import android.app.Activity;
 import android.app.Application;

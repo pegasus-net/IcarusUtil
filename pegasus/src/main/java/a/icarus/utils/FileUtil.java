@@ -53,17 +53,17 @@ public class FileUtil {
     public static String formatBytes(long size) {
         long kb = size / 1024;
         if (kb >= 1024L * 1024 * 1024 * 1024) {
-            return StringUtil.format("%.2fPB", kb / 1024f / 1024f / 1024f / 1024f);
+            return Strings.format("%.2fPB", kb / 1024f / 1024f / 1024f / 1024f);
         } else if (kb >= 1024L * 1024 * 1024) {
-            return StringUtil.format("%.2fTB", kb / 1024f / 1024f / 1024f);
+            return Strings.format("%.2fTB", kb / 1024f / 1024f / 1024f);
         } else if (kb >= 1024 * 1024) {
-            return StringUtil.format("%.2fGB", kb / 1024f / 1024f);
+            return Strings.format("%.2fGB", kb / 1024f / 1024f);
         } else if (kb >= 1024 * 100) {
-            return StringUtil.format("%dMB", (int) (kb / 1024f + 0.5f));
+            return Strings.format("%dMB", (int) (kb / 1024f + 0.5f));
         } else if (kb >= 1024) {
-            return StringUtil.format("%.2fMB", kb / 1024f);
+            return Strings.format("%.2fMB", kb / 1024f);
         } else if (kb >= 0) {
-            return StringUtil.format("%dKB", kb);
+            return Strings.format("%dKB", kb);
         } else {
             return "0KB";
         }

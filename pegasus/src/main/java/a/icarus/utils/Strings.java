@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import java.util.Locale;
 
 @SuppressWarnings("unused")
-public class StringUtil {
+public class Strings {
 
     public static String concat(String... arr) {
         String result = "";

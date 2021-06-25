@@ -1,4 +1,4 @@
-package a.icarus.simpleImpl;
+package a.icarus.impl;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -44,7 +44,7 @@ abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends 
         if (context == null) {
             context = parent.getContext();
         }
-        VH holder = null;
+        VH holder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(layoutId, parent,false);
             holder = onCreateViewHolder(convertView);

@@ -7,12 +7,9 @@ import java.util.Map;
 
 @SuppressWarnings("unused")
 public class CommandUtil {
-    public static final String SUCCESS_MSG = "success";
-    public static final String FAILED_MSG = "error";
 
-
-    public static Map<String, String> exec(String command) {
-        Map<String, String> result = new HashMap<>();
+    public static Result exec(String command) {
+        Result result = null;
         BufferedReader successReader = null;
         BufferedReader errorReader = null;
         Process process = null;
@@ -27,12 +24,11 @@ public class CommandUtil {
             while ((lineStr = successReader.readLine()) != null) {
                 successBuilder.append(lineStr).append("/n");
             }
-            result.put(SUCCESS_MSG, successBuilder.toString());
             StringBuilder errorBuilder = new StringBuilder();
             while ((lineStr = errorReader.readLine()) != null) {
                 errorBuilder.append(lineStr).append("/n");
             }
-            result.put(FAILED_MSG, errorBuilder.toString());
+            result = new Result(successBuilder.toString(), errorBuilder.toString());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -44,9 +40,14 @@ public class CommandUtil {
         }
         return result;
     }
+    public static class Result {
+        public final String SUCCESS_MSG;
+        public final String ERROR_MSG;
 
-    public static String getPublicNetIp() {
-        return OkHttpUtil.getString("https://api.ipify.org/");
+        public Result(String SUCCESS_MSG, String ERROR_MSG) {
+            this.SUCCESS_MSG = SUCCESS_MSG;
+            this.ERROR_MSG = ERROR_MSG;
+        }
     }
 
 }

@@ -1,6 +1,5 @@
-package a.icarus.simpleImpl;
+package a.icarus.impl;
 
-import android.util.Log;
 import android.view.View;
 
 import a.icarus.R;

@@ -11,6 +11,9 @@ import okhttp3.ResponseBody;
 
 @SuppressWarnings("unused")
 public class OkHttpUtil {
+    private OkHttpUtil() {
+    }
+
     public static ResponseBody getBody(String url) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();

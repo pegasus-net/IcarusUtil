@@ -1,4 +1,4 @@
-package a.icarus.utils.permission;
+package a.icarus.permission;
 
 import android.app.Activity;
 import android.app.AppOpsManager;

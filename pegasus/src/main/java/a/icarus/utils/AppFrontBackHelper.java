@@ -5,7 +5,7 @@ import android.app.Application;
 
 import org.jetbrains.annotations.NotNull;
 
-import a.icarus.simpleImpl.SimpleActivityLifecycleCallbacks;
+import a.icarus.impl.SimpleActivityLifecycleCallbacks;
 
 public class AppFrontBackHelper {
     private OnAppStatusListener mOnAppStatusListener;

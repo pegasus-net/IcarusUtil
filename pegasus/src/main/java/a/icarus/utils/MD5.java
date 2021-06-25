@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @SuppressWarnings("unused")
-public class MD5Util {
+public class MD5 {
     public static String encode(String string, boolean upperCase) {
         String encode = "";
         try {

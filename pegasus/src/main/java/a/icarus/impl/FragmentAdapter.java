@@ -1,4 +1,4 @@
-package a.icarus.simpleImpl;
+package a.icarus.impl;
 
 
 import java.util.List;
@@ -11,16 +11,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 @SuppressWarnings("unused")
-public class SimpleFragmentAdapter extends FragmentPagerAdapter {
+public class FragmentAdapter extends FragmentPagerAdapter {
     private final List<Fragment> fragments;
     private List<String> titles;
 
-    public SimpleFragmentAdapter(@NonNull FragmentManager fm, @NonNull List<Fragment> fragments) {
+    public FragmentAdapter(@NonNull FragmentManager fm, @NonNull List<Fragment> fragments) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.fragments = fragments;
     }
 
-    public SimpleFragmentAdapter(@NonNull AppCompatActivity activity, @NonNull List<Fragment> fragments) {
+    public FragmentAdapter(@NonNull AppCompatActivity activity, @NonNull List<Fragment> fragments) {
         super(activity.getSupportFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.fragments = fragments;
     }
