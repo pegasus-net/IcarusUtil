@@ -20,6 +20,7 @@ public class BottomPopupWindow extends PopupWindow {
     public static final int WRAP_CONTENT = -2;
     private ValueAnimator animator;
     private Window attachWindow;
+    private float windowAlpha =1.0f;
 
     public BottomPopupWindow() {
         this(null, MATCH_PARENT, WRAP_CONTENT);
@@ -41,7 +42,7 @@ public class BottomPopupWindow extends PopupWindow {
         super(contentView, width, height, focusable);
         setBackgroundDrawable(new ColorDrawable(0));
         setAnimationStyle(R.style.popupWindow_anim);
-        setOnDismissListener(() -> screenAlphaAnimStart(0.5f, 1.0f, 300));
+        setOnDismissListener(() -> screenAlphaAnimStart(windowAlpha, 1.0f, 300));
     }
 
     public void setWindow(Window window) {
@@ -56,7 +57,7 @@ public class BottomPopupWindow extends PopupWindow {
             return;
         }
         showAtLocation(getContentView(), Gravity.BOTTOM, 0, 0);
-        screenAlphaAnimStart(1.0f, 0.5f, 500);
+        screenAlphaAnimStart(windowAlpha, 0.5f, 500);
     }
 
     private void screenAlphaAnimStart(float from, float to, int duration) {
@@ -68,7 +69,7 @@ public class BottomPopupWindow extends PopupWindow {
         animator.addUpdateListener(animation -> {
             if (attachWindow != null) {
                 WindowManager.LayoutParams attributes = attachWindow.getAttributes();
-                attributes.alpha = (float) animation.getAnimatedValue();
+                windowAlpha = attributes.alpha = (float) animation.getAnimatedValue();
                 attachWindow.setAttributes(attributes);
             }
         });

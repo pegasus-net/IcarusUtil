@@ -3,20 +3,29 @@ package a.icarus.component;
 import android.app.Application;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import a.icarus.utils.StatusUtil;
+import a.icarus.utils.SystemUiUtil;
 
+@SuppressWarnings("unused")
 public abstract class BaseActivity extends AppCompatActivity {
     protected Application application;
+    protected Window mWindow;
+    protected View decorView;
+    protected String TAG;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TAG = "TAG:" + getClass().getSimpleName();
         application = getApplication();
         if (application instanceof MonitorApplication) {
             ((MonitorApplication) application).addActivity(this);
         }
+        mWindow = getWindow();
+        decorView = mWindow.getDecorView();
         initTheme();
         initView();
         initData();
@@ -24,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void initTheme() {
-        StatusUtil.setTranslucent(this);
+        SystemUiUtil.setTranslucent(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 

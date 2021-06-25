@@ -18,10 +18,18 @@ import androidx.fragment.app.FragmentManager;
 @SuppressWarnings("unused")
 abstract public class BaseFragment extends Fragment {
 
+    protected  String TAG;
+
     protected View rootView;
     protected Context mContext;
     protected AppCompatActivity mActivity;
     protected FragmentManager manager;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        TAG = "TAG:" + getClass().getSimpleName();
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {

@@ -3,6 +3,7 @@ package a.icarus.utils;
 import java.io.IOException;
 import java.io.InputStream;
 
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -35,5 +36,11 @@ public class OkHttpUtil {
     public static InputStream getInputStream(String url) {
         ResponseBody body = getBody(url);
         return body != null ? body.byteStream() : null;
+    }
+
+    public static void asyncCall(String url, Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(callback);
     }
 }

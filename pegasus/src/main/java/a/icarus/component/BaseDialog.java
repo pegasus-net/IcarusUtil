@@ -17,6 +17,9 @@ import androidx.appcompat.app.AlertDialog;
 
 @SuppressWarnings("unused")
 public abstract class BaseDialog extends Dialog {
+
+    protected final String TAG;
+
     protected Context context;
     protected View rootView;
     protected Window window;
@@ -27,6 +30,7 @@ public abstract class BaseDialog extends Dialog {
 
     public BaseDialog(@NonNull Context context, @LayoutRes int resId, int themeResId) {
         super(context, themeResId);
+        TAG = "TAG:" + getClass().getSimpleName();
         this.context = context;
         setContentView(resId);
         window = getWindow();

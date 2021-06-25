@@ -1,4 +1,4 @@
-package com.icarus.words;
+package a.icarus.utils;
 
 import android.view.Menu;
 

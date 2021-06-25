@@ -15,15 +15,28 @@ import javax.mail.internet.MimeMessage;
 
 @SuppressWarnings("unused")
 public class Mail {
-    private static final String userName = "1573539596@qq.com";
-    private static final String userPassword = "quvwqzhuwwakiiec";
+    private static final String defaultUserName = "1573539596@qq.com";
+    private static final String defaultPassword = "quvwqzhuwwakiiec";
+    private static final String defaultAddress = "1573539596@qq.com";
+    private static final String defaultMailTitle = "邮件Mail";
 
+    public static boolean send(String text) {
+        return send(defaultMailTitle, text);
+    }
 
     public static boolean send(String title, String text) {
+        return send(title, text, defaultUserName, defaultPassword, defaultAddress);
+    }
+
+    public static boolean send(final String title,
+                               final String text,
+                               final String userName,
+                               final String passWord,
+                               final String address) {
         Authenticator authenticator = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(userName, userPassword);
+                return new PasswordAuthentication(userName, passWord);
             }
         };
         try {

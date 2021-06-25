@@ -12,6 +12,7 @@ import a.icarus.utils.AppFrontBackHelper;
 
 @SuppressWarnings("unused")
 public class MonitorApplication extends Application implements AppFrontBackHelper.OnAppStatusListener {
+    protected String TAG;
     @SuppressLint("StaticFieldLeak")
     private static Context context;
     private final List<Activity> activityList = new ArrayList<>();
@@ -19,6 +20,7 @@ public class MonitorApplication extends Application implements AppFrontBackHelpe
     @Override
     public void onCreate() {
         super.onCreate();
+        TAG = "TAG:" + getClass().getSimpleName();
         context = getApplicationContext();
         Icarus.init(context);
         AppFrontBackHelper helper = new AppFrontBackHelper(this);
