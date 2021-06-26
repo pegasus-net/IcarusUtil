@@ -7,10 +7,10 @@ import java.util.Locale;
 @SuppressWarnings("unused")
 public class Strings {
 
-    public static String concat(String... arr) {
+    public static String concat(Object... arr) {
         String result = "";
-        for (String str : arr) {
-            result = result.concat(str);
+        for (Object o : arr) {
+            result = result.concat(String.valueOf(o));
         }
         return result;
     }
