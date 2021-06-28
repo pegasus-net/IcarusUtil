@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 
+import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import a.icarus.utils.WindowUtil;
 
 @SuppressWarnings("unused")
-public abstract class BaseActivity extends AppCompatActivity  {
+public abstract class BaseActivity extends AppCompatActivity {
     protected Application application;
     protected Window mWindow;
     protected View decorView;
@@ -49,6 +50,14 @@ public abstract class BaseActivity extends AppCompatActivity  {
             ((MonitorApplication) application).removeActivity(this);
         }
         super.onDestroy();
+    }
+
+    protected void setBackView(@IdRes int id) {
+        findViewById(id).setOnClickListener(v -> onBackPressed());
+    }
+
+    protected void setFinishView(@IdRes int id) {
+        findViewById(id).setOnClickListener(v -> finish());
     }
 
 }
