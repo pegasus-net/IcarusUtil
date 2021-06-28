@@ -15,9 +15,14 @@ import a.icarus.utils.Cast;
 
 @SuppressWarnings("unused")
 abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends BaseAdapter {
-    private final List<T> list;
-    private final int layoutId;
-    private Context context;
+    protected final List<T> list;
+    protected final int layoutId;
+    protected Context context;
+    protected OnEmptyListener onEmptyListener;
+
+    public void setOnEmptyListener(OnEmptyListener onEmptyListener) {
+        this.onEmptyListener = onEmptyListener;
+    }
 
     public ListAdapter(List<T> list, @LayoutRes int layoutId) {
         this.list = list;
@@ -46,7 +51,7 @@ abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends 
         }
         VH holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(layoutId, parent,false);
+            convertView = LayoutInflater.from(context).inflate(layoutId, parent, false);
             holder = onCreateViewHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -63,8 +68,21 @@ abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends 
 
     public static class ViewHolder {
         public final View rootView;
+
         public ViewHolder(@NonNull View itemView) {
             rootView = itemView;
         }
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        if (onEmptyListener != null) {
+            onEmptyListener.isEmpty(list.isEmpty());
+        }
+    }
+
+    public interface OnEmptyListener {
+        void isEmpty(boolean isEmpty);
     }
 }
