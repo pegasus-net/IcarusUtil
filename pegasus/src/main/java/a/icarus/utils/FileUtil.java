@@ -6,7 +6,12 @@ import android.os.Environment;
 import android.os.StatFs;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 @SuppressWarnings("unused")
 public class FileUtil {
@@ -48,6 +53,16 @@ public class FileUtil {
             }
         }
         return success;
+    }
+
+    public static void copy(File source, File target) {
+        try {
+            InputStream is = new FileInputStream(source);
+            OutputStream os = new FileOutputStream(target);
+            StreamUtil.copy(is, os);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String formatBytes(long size) {

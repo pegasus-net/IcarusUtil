@@ -49,17 +49,5 @@ public class SystemService {
         return versionName;
     }
 
-    public static void runOnUiThread(Runnable runnable) {
-        if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
-            runnable.run();
-            return;
-        }
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(runnable);
-    }
 
-    public static void runOnUiThreadDelay(Runnable runnable, long delay) {
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(runnable, delay);
-    }
 }

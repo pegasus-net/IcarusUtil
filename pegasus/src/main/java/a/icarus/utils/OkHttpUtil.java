@@ -44,18 +44,25 @@ public class OkHttpUtil {
         return body != null ? body.byteStream() : null;
     }
 
+    @Deprecated
     public static void asyncCall(String url, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                callback.onFailure(call, e);
+                ThreadUtil.runOnUiThread(() -> callback.onFailure(call, e));
             }
 
             @Override
-            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                callback.onResponse(call, response);
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
+                ThreadUtil.runOnUiThread(() -> {
+                    try {
+                        callback.onResponse(call, response);
+                    } catch (IOException e) {
+                        ThreadUtil.runOnUiThread(() -> callback.onFailure(call, e));
+                    }
+                });
             }
         });
     }
