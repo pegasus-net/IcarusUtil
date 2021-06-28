@@ -1,8 +1,11 @@
 package a.icarus.utils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.io.InputStream;
 
+import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -44,6 +47,16 @@ public class OkHttpUtil {
     public static void asyncCall(String url, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();
-        client.newCall(request).enqueue(callback);
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                callback.onFailure(call, e);
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                callback.onResponse(call, response);
+            }
+        });
     }
 }
