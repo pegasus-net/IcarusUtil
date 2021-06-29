@@ -61,23 +61,24 @@ public abstract class BaseDialog extends Dialog {
         setContentView(rootView);
     }
 
-    protected void setViewOnClickListener(@IdRes int resID, View.OnClickListener listener) {
-        View view = rootView.findViewById(resID);
+    public void setViewOnClickListener(@IdRes int resID, View.OnClickListener listener) {
+        View view = findViewById(resID);
         view.setOnClickListener(listener);
     }
 
 
-    protected TextView findTextView(@IdRes int resID) {
+    public TextView findTextView(@IdRes int resID) {
         return rootView.findViewById(resID);
     }
 
-    protected ImageView findImageView(@IdRes int resID) {
+    public ImageView findImageView(@IdRes int resID) {
         return rootView.findViewById(resID);
     }
 
-    protected Button findButtonView(@IdRes int resID) {
+    public Button findButtonView(@IdRes int resID) {
         return rootView.findViewById(resID);
     }
+
 
     public interface OnPositiveListener {
         void click(View v);

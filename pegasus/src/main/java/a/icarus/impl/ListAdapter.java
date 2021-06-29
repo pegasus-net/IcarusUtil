@@ -1,6 +1,7 @@
 package a.icarus.impl;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,6 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
-import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
@@ -73,9 +73,13 @@ abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends 
         public ViewHolder(@NonNull View itemView) {
             rootView = itemView;
         }
+    }
 
-        protected final <T extends View> T findViewById(@IdRes int id) {
-            return rootView.findViewById(id);
+    @Override
+    public void registerDataSetObserver(DataSetObserver observer) {
+        super.registerDataSetObserver(observer);
+        if (onEmptyListener != null) {
+            onEmptyListener.isEmpty(list.isEmpty());
         }
     }
 
