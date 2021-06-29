@@ -492,14 +492,7 @@ public class CropView extends SurfaceView implements SurfaceHolder.Callback {
 
     /*public method*/
     public void setBitmap(Bitmap bitmap) {
-        synchronized (this) {
-            if (this.bitmap != null) {
-                this.bitmap.recycle();
-                this.bitmap = null;
-                System.gc();
-            }
-            this.bitmap = bitmap;
-        }
+        this.bitmap = bitmap;
         if (width == 0 || height == 0) {
             runOnLayout = this::setBaseScale;
             return;
