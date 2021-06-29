@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.provider.Settings;
 
+import a.icarus.utils.Logger;
 import androidx.fragment.app.Fragment;
 
 public class PermissionUtil {
@@ -23,6 +24,7 @@ public class PermissionUtil {
         boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         return gps || network;
+
     }
 
     public static boolean checkGetUsage(Context context) {
@@ -65,9 +67,11 @@ public class PermissionUtil {
         throw new RuntimeException("请使用Activity或者Fragment");
 
     }
+
     public static boolean isIntentLegal(Context context, Intent intent) {
         return context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0;
     }
+
     public static Intent getDetailsSettingsIntent(Context context) {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.fromParts("package", context.getPackageName(), null));
