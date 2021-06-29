@@ -12,7 +12,7 @@ public class Logger {
     public static final int ERROR = 1 << 5;
 
     private static String TAG = "Logger:TAG-->";
-    private static int level = INFO|WARN|ERROR;
+    private static int level = INFO | WARN | ERROR;
     private static int type = INFO;
 
     public static void t(Object... arr) {
