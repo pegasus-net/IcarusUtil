@@ -59,14 +59,14 @@ abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends 
         } else {
             holder = Cast.cast(convertView.getTag());
         }
-        onBindViewHolder(holder, list.get(position));
+        onBindViewHolder(holder, list.get(position), position);
         return convertView;
 
     }
 
     protected abstract VH onCreateViewHolder(View convertView);
 
-    protected abstract void onBindViewHolder(VH holder, T item);
+    protected abstract void onBindViewHolder(VH holder, T item, int position);
 
     public static class ViewHolder {
         public final View rootView;
