@@ -1,0 +1,57 @@
+自动适配屏幕
+implementation 'me.jessyan:autosize:1.2.1'
+要求：
+需要在AndroidManifest.xml中配置
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="360" />
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="640" />
+
+权限处理
+implementation "com.github.permissions-dispatcher:permissionsdispatcher:4.8.0"
+annotationProcessor "com.github.permissions-dispatcher:permissionsdispatcher-processor:4.8.0"
+
+EventBus
+implementation 'org.greenrobot:eventbus:3.2.0'
+
+网络连接
+implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+Json解析
+implementation 'com.google.code.gson:gson:2.8.6'
+HTML解析
+implementation 'org.jsoup:jsoup:1.13.1'
+
+数据库操作
+implementation 'org.litepal.guolindev:core:3.2.3'
+要求：
+需要在Application中初始化
+在assets目录下需要有litepal.xml文件
+
+从图片中获取合适的颜色
+implementation 'androidx.palette:palette:1.0.0'
+
+用于ViewPager的指示器
+implementation 'com.github.hackware1993:MagicIndicator:1.7.0'
+
+图片加载
+implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+邮件功能必备库
+implementation 'com.sun.mail:android-mail:1.6.0'
+implementation 'com.sun.mail:android-activation:1.6.0'
+
+刷新功能
+implementation  'com.scwang.smart:refresh-layout-kernel:2.0.3'      //核心必须依赖
+implementation  'com.scwang.smart:refresh-header-classics:2.0.3'    //经典刷新头
+implementation  'com.scwang.smart:refresh-header-radar:2.0.3'       //雷达刷新头
+implementation  'com.scwang.smart:refresh-header-falsify:2.0.3'     //虚拟刷新头
+implementation  'com.scwang.smart:refresh-header-material:2.0.3'    //谷歌刷新头
+implementation  'com.scwang.smart:refresh-header-two-level:2.0.3'   //二级刷新头
+implementation  'com.scwang.smart:refresh-footer-ball:2.0.3'        //球脉冲加载
+implementation  'com.scwang.smart:refresh-footer-classics:2.0.3'    //经典加载
+
+libs依赖
+implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
+implementation files('libs/xxx.aar')
