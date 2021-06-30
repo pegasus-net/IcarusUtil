@@ -41,7 +41,7 @@ public abstract class RecyclerAdapter<T, VH extends RecyclerView.ViewHolder> ext
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 
     public T getItem(int position) {
