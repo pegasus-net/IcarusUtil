@@ -1,6 +1,13 @@
 package a.icarus.utils;
 
+import android.content.Context;
 import android.util.Log;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 @SuppressWarnings("unused")
 public class Logger {
@@ -58,6 +65,32 @@ public class Logger {
     public static void e(Object... arr) {
         if ((level & ERROR) == 0) return;
         Log.e(TAG, Strings.concat(arr));
+    }
+
+    public static void save(Throwable e) {
+        File dataDir = Icarus.getContext().getExternalCacheDir().getParentFile();
+        File logDir = new File(dataDir, "logs");
+        if (!logDir.exists()) {
+            boolean b = logDir.mkdir();
+        }
+        File log = new File(logDir, Strings.concat(System.currentTimeMillis() / 1000,
+                e.getClass().getSimpleName(), ".log"));
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(log);
+            save(e, fos);
+        } catch (FileNotFoundException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        } finally {
+            Recycle.close(fos);
+        }
+    }
+
+    public static void save(Throwable e, OutputStream os) {
+        PrintStream printStream = new PrintStream(os);
+        e.printStackTrace(printStream);
+        Recycle.close(printStream);
+        Recycle.close(os);
     }
 
     public static void setTAG(String TAG) {

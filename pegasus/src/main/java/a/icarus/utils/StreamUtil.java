@@ -1,8 +1,14 @@
 package a.icarus.utils;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 @SuppressWarnings("unused")
 public class StreamUtil {
@@ -30,10 +36,10 @@ public class StreamUtil {
 
     public static String toString(InputStream is, byte[] buffer) {
         int len;
-        StringBuilder builder = new StringBuilder();
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
             while ((len = is.read(buffer)) != -1) {
-                builder.append(new String(buffer, 0, len));
+                bos.write(buffer,0,len);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,6 +47,6 @@ public class StreamUtil {
         } finally {
             Recycle.close(is);
         }
-        return builder.toString();
+        return bos.toString();
     }
 }
