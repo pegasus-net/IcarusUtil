@@ -83,4 +83,13 @@ public abstract class BaseDialog extends Dialog {
     public interface OnPositiveListener {
         void click(View v);
     }
+
+    public static BaseDialog builder(@NonNull Context context, @LayoutRes int resId) {
+        return new BaseDialog(context, resId) {
+            @Override
+            protected void init() {
+
+            }
+        };
+    }
 }
