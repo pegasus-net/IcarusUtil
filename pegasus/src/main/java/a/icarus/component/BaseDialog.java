@@ -55,12 +55,6 @@ public abstract class BaseDialog extends Dialog {
         return this;
     }
 
-    @Override
-    public void setContentView(int layoutResID) {
-        rootView = LayoutInflater.from(context).inflate(layoutResID, null);
-        setContentView(rootView);
-    }
-
     public void setViewOnClickListener(@IdRes int resID, View.OnClickListener listener) {
         View view = findViewById(resID);
         view.setOnClickListener(listener);
@@ -68,15 +62,15 @@ public abstract class BaseDialog extends Dialog {
 
 
     public TextView findTextView(@IdRes int resID) {
-        return rootView.findViewById(resID);
+        return findViewById(resID);
     }
 
     public ImageView findImageView(@IdRes int resID) {
-        return rootView.findViewById(resID);
+        return findViewById(resID);
     }
 
     public Button findButtonView(@IdRes int resID) {
-        return rootView.findViewById(resID);
+        return findViewById(resID);
     }
 
 
