@@ -1,6 +1,7 @@
 package a.icarus.utils;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
@@ -22,14 +23,41 @@ public class WindowUtil {
 
     public static void setBlackStatus(Activity activity) {
         Window window = activity.getWindow();
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        View decorView = window.getDecorView();
+        if (decorView != null) {
+            int option = decorView.getSystemUiVisibility();
+            option |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            decorView.setSystemUiVisibility(option);
+        }
     }
 
     public static void setWhiteStatus(Activity activity) {
         Window window = activity.getWindow();
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        View decorView = window.getDecorView();
+        if (decorView != null) {
+            int option = decorView.getSystemUiVisibility();
+            option &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            decorView.setSystemUiVisibility(option);
+        }
+    }
+
+    public static int getStatusBarHeight() {
+        Resources res = Icarus.getContext().getResources();
+        int resourceId = res.getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId != 0) {
+            return res.getDimensionPixelSize(resourceId);
+        } else {
+            return ConversionTool.dp2px(20);
+        }
+    }
+
+    public static int getNavBarHeight() {
+        Resources res = Icarus.getContext().getResources();
+        int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId != 0) {
+            return res.getDimensionPixelSize(resourceId);
+        } else {
+            return 0;
+        }
     }
 }

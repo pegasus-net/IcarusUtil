@@ -3,8 +3,8 @@ package a.icarus.component;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.Nullable;
 
 @SuppressWarnings("unused")
 public abstract class BaseDialog extends Dialog {
@@ -21,7 +21,7 @@ public abstract class BaseDialog extends Dialog {
     protected final String TAG;
 
     protected Context context;
-    protected View rootView;
+    protected ViewGroup decorView;
     protected Window window;
 
     public BaseDialog(@NonNull Context context, @LayoutRes int resId) {
@@ -36,11 +36,13 @@ public abstract class BaseDialog extends Dialog {
         window = getWindow();
         window.setBackgroundDrawable(new ColorDrawable(0));
         window.setDimAmount(0.5f);
+        decorView = (ViewGroup) window.getDecorView();
         init();
     }
 
 
     abstract protected void init();
+
 
     public BaseDialog setNegativeButton(@IdRes int resID) {
         setViewOnClickListener(resID, v -> dismiss());

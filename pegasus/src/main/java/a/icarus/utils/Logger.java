@@ -17,9 +17,10 @@ public class Logger {
     public static final int INFO = 1 << 3;
     public static final int WARN = 1 << 4;
     public static final int ERROR = 1 << 5;
+    public static final int CRASH = 1 << 6;
 
     private static String TAG = "Logger:TAG-->";
-    private static int level = INFO | WARN | ERROR;
+    private static int level = INFO | WARN | ERROR ;
     private static int type = INFO;
 
     public static void t(Object... arr) {
@@ -68,6 +69,7 @@ public class Logger {
     }
 
     public static void save(Throwable e) {
+        if ((level & CRASH) == 0) return;
         File dataDir = Icarus.getContext().getExternalCacheDir().getParentFile();
         File logDir = new File(dataDir, "logs");
         if (!logDir.exists()) {
@@ -87,6 +89,7 @@ public class Logger {
     }
 
     public static void save(Throwable e, OutputStream os) {
+        if ((level & CRASH) == 0) return;
         PrintStream printStream = new PrintStream(os);
         e.printStackTrace(printStream);
         Recycle.close(printStream);
@@ -101,7 +104,12 @@ public class Logger {
         Logger.type = type;
     }
 
+    public static void addType(int type) {
+        Logger.type = Logger.type | type;
+    }
+
     public static void setLevel(int level) {
         Logger.level = level;
     }
+
 }

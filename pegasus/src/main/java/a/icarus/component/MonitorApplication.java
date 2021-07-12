@@ -10,6 +10,7 @@ import java.util.List;
 
 import a.icarus.utils.AppFrontBackHelper;
 import a.icarus.utils.Icarus;
+import a.icarus.utils.Logger;
 import androidx.annotation.NonNull;
 
 @SuppressWarnings("unused")
@@ -25,6 +26,14 @@ public class MonitorApplication extends Application implements AppFrontBackHelpe
         TAG = "TAG:" + getClass().getSimpleName();
         context = getApplicationContext();
         Icarus.init(context);
+//        Logger.addType(Logger.CRASH);
+//        Thread.UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
+//        Thread.setDefaultUncaughtExceptionHandler(((t, e) -> {
+//            Logger.save(e);
+//            if (handler != null) {
+//                handler.uncaughtException(t, e);
+//            }
+//        }));
         AppFrontBackHelper helper = new AppFrontBackHelper(this);
         helper.setOnAppStatusListener(this);
     }
