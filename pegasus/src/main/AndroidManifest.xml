@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="a.icarus">
+    package="a.icarus"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application>
         <activity android:name=".impl.TestActivity" />
         <provider
             android:name=".utils.FileProviderSupport"
-            android:authorities="a.icarus.file_provider"
+            android:authorities="${applicationId}.icarus._file_provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

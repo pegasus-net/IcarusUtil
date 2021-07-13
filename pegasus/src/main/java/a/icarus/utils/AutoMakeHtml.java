@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
 public class AutoMakeHtml {
     public static void main(String[] args) throws Exception {
@@ -16,7 +17,7 @@ public class AutoMakeHtml {
         FileInputStream fis = new FileInputStream(source);
         FileOutputStream fos = new FileOutputStream(html);
         InputStreamReader isr = new InputStreamReader(fis, "gbk");
-        OutputStreamWriter osw = new OutputStreamWriter(fos, "gbk");
+        OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
         char[] buffer = new char[1024];
         int len;
         StringBuilder builder = new StringBuilder();
