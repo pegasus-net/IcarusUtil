@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application>
-        <activity android:name=".impl.TestActivity" />
+        <activity android:name=".test.TestActivity" />
         <provider
             android:name=".utils.FileProviderSupport"
             android:authorities="${applicationId}.icarus._file_provider"

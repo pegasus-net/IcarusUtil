@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 @SuppressWarnings("unused")
 public abstract class BaseDialog extends Dialog {
@@ -37,29 +36,10 @@ public abstract class BaseDialog extends Dialog {
         window.setBackgroundDrawable(new ColorDrawable(0));
         window.setDimAmount(0.5f);
         decorView = (ViewGroup) window.getDecorView();
-        init();
-    }
-
-
-    abstract protected void init();
-
-
-    public BaseDialog setNegativeButton(@IdRes int resID) {
-        setViewOnClickListener(resID, v -> dismiss());
-        return this;
-    }
-
-    public BaseDialog setPositiveButton(@IdRes int resID, OnPositiveListener listener) {
-        setViewOnClickListener(resID, v -> {
-            listener.click(v);
-            dismiss();
-        });
-        return this;
     }
 
     public void setViewOnClickListener(@IdRes int resID, View.OnClickListener listener) {
-        View view = findViewById(resID);
-        view.setOnClickListener(listener);
+        findViewById(resID).setOnClickListener(listener);
     }
 
 
@@ -77,15 +57,54 @@ public abstract class BaseDialog extends Dialog {
 
 
     public interface OnPositiveListener {
-        void click(View v);
+        void click();
     }
 
-    public static BaseDialog builder(@NonNull Context context, @LayoutRes int resId) {
-        return new BaseDialog(context, resId) {
-            @Override
-            protected void init() {
+    public static class Builder {
+        private final Context context;
+        private int layoutId = 0;
+        private int positiveViewId = 0;
+        private int negativeViewId = 0;
+        private OnPositiveListener listener;
 
+        public Builder(Context context) {
+            this.context = context;
+        }
+
+        public Builder setLayout(@LayoutRes int layoutId) {
+            this.layoutId = layoutId;
+            return this;
+        }
+
+        public Builder setPositiveView(@IdRes int positiveViewId, @NonNull OnPositiveListener listener) {
+            this.positiveViewId = positiveViewId;
+            this.listener = listener;
+            return this;
+        }
+
+        public Builder setNegativeView(@IdRes int negativeViewId) {
+            this.negativeViewId = negativeViewId;
+            return this;
+        }
+
+        public BaseDialog builder() {
+            if (layoutId == 0) {
+                throw new NullPointerException("Dialog is missing layout file");
             }
-        };
+            BaseDialog dialog = new BaseDialog(context, layoutId) {
+            };
+            if (positiveViewId != 0) {
+                dialog.setViewOnClickListener(positiveViewId,
+                        v -> {
+                            listener.click();
+                            dialog.dismiss();
+                        });
+            }
+            if (negativeViewId != 0) {
+                dialog.setViewOnClickListener(negativeViewId,
+                        v -> dialog.dismiss());
+            }
+            return dialog;
+        }
     }
 }

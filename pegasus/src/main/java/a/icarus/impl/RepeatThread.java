@@ -1,11 +1,13 @@
 package a.icarus.impl;
 
+import androidx.annotation.NonNull;
 
+@SuppressWarnings("unused")
 public class RepeatThread extends Thread {
     private volatile boolean isRunning;
     private final Runnable task;
 
-    public RepeatThread(Runnable task) {
+    public RepeatThread(@NonNull Runnable task) {
         this.task = task;
     }
 

@@ -1,4 +1,4 @@
-package a.icarus.component;
+package a.icarus.view;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

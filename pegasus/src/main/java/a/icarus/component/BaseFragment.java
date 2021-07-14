@@ -72,7 +72,6 @@ abstract public class BaseFragment extends Fragment {
 
     protected abstract void initData();
 
-    protected void initListener() {
-    }
+    protected abstract void initListener();
 
 }

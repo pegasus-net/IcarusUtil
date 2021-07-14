@@ -1,4 +1,4 @@
-package a.icarus.utils;
+package a.icarus.test;
 
 import java.io.File;
 import java.io.FileInputStream;

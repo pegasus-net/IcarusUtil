@@ -100,8 +100,8 @@ public class FileUtil {
                 file.delete();
             }
             file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignore) {
+
         }
         return getUri(file);
     }
