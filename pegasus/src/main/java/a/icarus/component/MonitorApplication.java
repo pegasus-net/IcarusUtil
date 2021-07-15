@@ -11,7 +11,6 @@ import java.util.List;
 import a.icarus.utils.AppFrontBackHelper;
 import a.icarus.utils.Icarus;
 import a.icarus.utils.Logger;
-import androidx.annotation.NonNull;
 
 @SuppressWarnings("unused")
 public class MonitorApplication extends Application implements AppFrontBackHelper.OnAppStatusListener {
@@ -26,19 +25,22 @@ public class MonitorApplication extends Application implements AppFrontBackHelpe
         TAG = "TAG:" + getClass().getSimpleName();
         context = getApplicationContext();
         Icarus.init(context);
-        Logger.setType(Logger.ERROR);
-//        Logger.addType(Logger.CRASH);
-//        Thread.UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
-//        Thread.setDefaultUncaughtExceptionHandler(((t, e) -> {
-//            Logger.save(e,true);
-//            if (handler != null) {
-//                handler.uncaughtException(t, e);
-//            }
-//        }));
         AppFrontBackHelper helper = new AppFrontBackHelper(this);
         helper.setOnAppStatusListener(this);
+        init();
     }
 
+    public void init() {
+        Logger.setType(Logger.ERROR);
+        Logger.addLevel(Logger.SAVE);
+        Thread.UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
+        Thread.setDefaultUncaughtExceptionHandler(((t, e) -> {
+            Logger.save(e, true);
+            if (handler != null) {
+                handler.uncaughtException(t, e);
+            }
+        }));
+    }
 
     public static Context getContext() {
         return context;
@@ -65,27 +67,27 @@ public class MonitorApplication extends Application implements AppFrontBackHelpe
         activityList.clear();
     }
 
-    protected boolean onFrontIgnore(Activity activity) {
+    protected boolean onAppFrontIgnore(Activity activity) {
         return false;
     }
 
-    protected void appBackgroundToFront(Activity activity) {
+    protected void onAppBackgroundToFront(Activity activity) {
 
     }
 
-    protected void appFrontToBackground(Activity activity) {
+    protected void onAppFrontToBackground(Activity activity) {
 
     }
 
     @Override
     public final void onFront(Activity activity) {
-        if (!onFrontIgnore(activity)) {
-            appBackgroundToFront(activity);
+        if (!onAppFrontIgnore(activity)) {
+            onAppBackgroundToFront(activity);
         }
     }
 
     @Override
     public final void onBack(Activity activity) {
-        appFrontToBackground(activity);
+        onAppFrontToBackground(activity);
     }
 }

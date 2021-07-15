@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 
 import androidx.annotation.IdRes;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import a.icarus.utils.WindowUtil;
@@ -36,6 +37,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void initTheme() {
         WindowUtil.setTranslucentStatusBar(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
     }
 
     protected abstract void initView();

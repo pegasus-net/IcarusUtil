@@ -20,7 +20,7 @@ public class Logger {
 
     private static String TAG = "Logger:TAG -->";
     private static final String EMPTY = "empty";
-    private static int level = INFO | WARN | ERROR;
+    private static int level = VERBOSE | DEBUG | INFO | WARN | ERROR;
     private static int type = INFO;
 
     public static void t(Object... arr) {
@@ -118,10 +118,10 @@ public class Logger {
             if (!logDir.exists()) {
                 logDir.mkdirs();
             }
-            File log = new File(logDir,
-                    Strings.concat(DateUtil.format(DateUtil.FILE_FORMAT), "msg.log"));
-            fos = new FileOutputStream(log);
-            fos.write(msg.getBytes());
+            File log = new File(logDir, DateUtil.format("yyyy-MM-dd") + "msg.log");
+            fos = new FileOutputStream(log, true);
+            fos.write(Strings.concat(DateUtil.current(),
+                    "\n", msg, "\n\n").getBytes());
         } catch (Exception ignore) {
         } finally {
             Recycle.close(fos);
@@ -145,8 +145,12 @@ public class Logger {
         Logger.type = type;
     }
 
-    public static void addType(int type) {
-        Logger.type = Logger.type | type;
+    public static void addLevel(int level) {
+        Logger.level = Logger.level | level;
+    }
+
+    public static void removeLevel(int level) {
+        Logger.level = Logger.level & ~level;
     }
 
     public static void setLevel(int level) {

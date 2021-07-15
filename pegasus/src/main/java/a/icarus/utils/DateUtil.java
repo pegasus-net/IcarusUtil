@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+@SuppressWarnings("unused")
 public class DateUtil {
     public static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String EXACT_FORMAT = "yyyy-MM-dd HH:mm:ss SSS";
