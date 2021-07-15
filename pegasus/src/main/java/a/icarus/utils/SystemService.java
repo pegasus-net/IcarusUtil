@@ -48,6 +48,4 @@ public class SystemService {
         }
         return versionName;
     }
-
-
 }

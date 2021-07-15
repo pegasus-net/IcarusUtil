@@ -1,7 +1,5 @@
 package a.icarus.utils;
 
-import android.util.Log;
-
 import androidx.core.content.FileProvider;
 
 public class FileProviderSupport extends FileProvider {
