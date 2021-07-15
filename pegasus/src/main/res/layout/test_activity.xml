@@ -3,8 +3,8 @@
     android:id="@+id/test_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black99"
     android:fitsSystemWindows="true"
-    android:background="#FF999999"
     android:orientation="vertical">
 
     <Button
