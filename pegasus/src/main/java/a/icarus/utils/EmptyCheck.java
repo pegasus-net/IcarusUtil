@@ -8,20 +8,20 @@ import java.util.List;
 public class EmptyCheck {
     public static boolean isEmpty(String str, boolean ignoreCase, String... ignores) {
         if (str == null) {
-            return false;
+            return true;
         }
         for (String ignore : ignores) {
             if (ignoreCase) {
                 if (str.equalsIgnoreCase(ignore)) {
-                    return false;
+                    return true;
                 }
             } else {
                 if (str.equals(ignore)) {
-                    return false;
+                    return true;
                 }
             }
         }
-        return !TextUtils.isEmpty(str.trim());
+        return TextUtils.isEmpty(str.trim());
     }
 
     public static boolean isEmpty(String str, String... ignores) {
@@ -29,10 +29,10 @@ public class EmptyCheck {
     }
 
     public static boolean isEmpty(List<?> list) {
-        return list != null && list.size() != 0;
+        return list == null || list.size() == 0;
     }
 
     public static boolean isEmpty(Object[] arr) {
-        return arr != null && arr.length != 0;
+        return arr == null || arr.length == 0;
     }
 }

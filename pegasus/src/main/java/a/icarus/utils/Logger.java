@@ -40,6 +40,9 @@ public class Logger {
             case ERROR:
                 e(arr);
                 break;
+            case SAVE:
+                save(arr);
+                break;
         }
     }
 
@@ -98,7 +101,7 @@ public class Logger {
                 boolean b = logDir.mkdir();
             }
             File log = new File(logDir,
-                    Strings.concat(crash ? "_CRASH_" : "",
+                    Strings.concat(crash ? "Crash_" : "Normal_",
                             DateUtil.format(DateUtil.FILE_FORMAT),
                             e.getClass().getSimpleName(), ".log"));
             fos = new FileOutputStream(log);
@@ -109,8 +112,12 @@ public class Logger {
         }
     }
 
-    public static void save(String msg) {
+    public static void save(Object arr) {
         if ((level & SAVE) == 0) return;
+        String msg = Strings.concat(arr);
+        if (TextUtils.isEmpty(msg)) {
+            msg = EMPTY;
+        }
         FileOutputStream fos = null;
         try {
             File dataDir = Icarus.getContext().getExternalCacheDir().getParentFile();
@@ -118,7 +125,7 @@ public class Logger {
             if (!logDir.exists()) {
                 logDir.mkdirs();
             }
-            File log = new File(logDir, DateUtil.format("yyyy-MM-dd") + "msg.log");
+            File log = new File(logDir, "Message_"+DateUtil.format("yyyy-MM-dd") + ".log");
             fos = new FileOutputStream(log, true);
             fos.write(Strings.concat(DateUtil.current(),
                     "\n", msg, "\n\n").getBytes());

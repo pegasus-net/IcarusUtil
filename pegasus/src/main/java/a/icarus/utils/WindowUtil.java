@@ -69,6 +69,19 @@ public class WindowUtil {
         }
     }
 
+    public static void clearImmersive(Activity activity, boolean status, boolean nav) {
+        View decorView = getDecorView(activity);
+        if (decorView != null) {
+            decorView.setSystemUiVisibility(0);
+            if (status) {
+                fillInStatusBar(activity);
+            }
+            if (nav) {
+                fillInNavBar(activity);
+            }
+        }
+    }
+
     private static final int TAG_OFFSET = 900;
 
     public static void setViewFitSystemWindows(View view) {

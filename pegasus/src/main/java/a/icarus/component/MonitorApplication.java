@@ -31,10 +31,9 @@ public class MonitorApplication extends Application implements AppFrontBackHelpe
     }
 
     public void init() {
-        Logger.setType(Logger.ERROR);
-        Logger.addLevel(Logger.SAVE);
         Thread.UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(((t, e) -> {
+            Logger.addLevel(Logger.SAVE);
             Logger.save(e, true);
             if (handler != null) {
                 handler.uncaughtException(t, e);
