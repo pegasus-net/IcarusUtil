@@ -26,10 +26,11 @@ public class MonitorApplication extends Application implements AppFrontBackHelpe
         TAG = "TAG:" + getClass().getSimpleName();
         context = getApplicationContext();
         Icarus.init(context);
+        Logger.setType(Logger.ERROR);
 //        Logger.addType(Logger.CRASH);
 //        Thread.UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
 //        Thread.setDefaultUncaughtExceptionHandler(((t, e) -> {
-//            Logger.save(e);
+//            Logger.save(e,true);
 //            if (handler != null) {
 //                handler.uncaughtException(t, e);
 //            }

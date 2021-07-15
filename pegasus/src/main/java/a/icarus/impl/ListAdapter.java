@@ -9,11 +9,10 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
+import a.icarus.utils.ConversionTool;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
-
-import a.icarus.utils.Cast;
 
 @SuppressWarnings("unused")
 abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends BaseAdapter {
@@ -57,7 +56,7 @@ abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends 
             holder = onCreateViewHolder(convertView);
             convertView.setTag(holder);
         } else {
-            holder = Cast.cast(convertView.getTag());
+            holder = ConversionTool.cast(convertView.getTag());
         }
         onBindViewHolder(holder, list.get(position), position);
         return convertView;

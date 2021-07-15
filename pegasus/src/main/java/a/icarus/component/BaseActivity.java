@@ -34,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void initTheme() {
-        WindowUtil.setTranslucent(this);
+        WindowUtil.setTranslucentStatusBar(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 

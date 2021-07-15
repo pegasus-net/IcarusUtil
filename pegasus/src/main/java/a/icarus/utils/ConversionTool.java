@@ -28,4 +28,9 @@ public class ConversionTool {
         return builder.toString();
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T> T cast(Object object) {
+        return (T) object;
+    }
+
 }

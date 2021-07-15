@@ -8,14 +8,16 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import a.icarus.utils.EmptyCheck;
 import a.icarus.utils.Logger;
 import a.icarus.utils.Strings;
 
 public class JavaTest {
     public static void main(String[] args) throws Exception {
-
+        Matcher regex = Strings.regex("123", "1");
     }
 }

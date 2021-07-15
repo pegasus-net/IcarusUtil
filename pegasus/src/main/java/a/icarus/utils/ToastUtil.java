@@ -8,7 +8,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class ToastUtil {
-    private static final List<Toast> toasts = new ArrayList<>();
+    private static Toast toast;
 
     public static void show(String msg) {
         show(msg, 1000);
@@ -16,13 +16,13 @@ public class ToastUtil {
 
 
     public static void show(String msg, long time) {
-        for (Toast t : toasts) {
-            t.cancel();
+        if (toast != null) {
+            toast.cancel();
+            toast = null;
         }
-        toasts.clear();
-        Toast toast = Toast.makeText(Icarus.getContext(), msg, Toast.LENGTH_LONG);
-        toasts.add(toast);
+        toast = Toast.makeText(Icarus.getContext(), msg, Toast.LENGTH_LONG);
         toast.show();
+        if (time >= 3500) return;
         Handler handler = new Handler();
         handler.postDelayed(toast::cancel, time);
     }

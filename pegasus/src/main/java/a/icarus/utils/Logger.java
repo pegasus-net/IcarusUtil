@@ -4,13 +4,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 @SuppressWarnings("unused")
 public class Logger {
@@ -20,7 +16,7 @@ public class Logger {
     public static final int INFO = 1 << 3;
     public static final int WARN = 1 << 4;
     public static final int ERROR = 1 << 5;
-    public static final int CRASH = 1 << 6;
+    public static final int SAVE = 1 << 6;
 
     private static String TAG = "Logger:TAG -->";
     private static final String EMPTY = "empty";
@@ -92,20 +88,19 @@ public class Logger {
         Log.e(TAG, msg);
     }
 
-    public static void save(Throwable e) {
-        if ((level & CRASH) == 0) return;
-        File dataDir = Icarus.getContext().getExternalCacheDir().getParentFile();
-        File logDir = new File(dataDir, "logs");
-        if (!logDir.exists()) {
-            boolean b = logDir.mkdir();
-        }
-        Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy_MM_dd%HH_mm_ss", Locale.CHINA);
-        String dateString = format.format(date);
-        File log = new File(logDir, Strings.concat(dateString,
-                e.getClass().getSimpleName(), ".log"));
+    public static void save(Throwable e, boolean crash) {
+        if ((level & SAVE) == 0) return;
         FileOutputStream fos = null;
         try {
+            File dataDir = Icarus.getContext().getExternalCacheDir().getParentFile();
+            File logDir = new File(dataDir, "logs");
+            if (!logDir.exists()) {
+                boolean b = logDir.mkdir();
+            }
+            File log = new File(logDir,
+                    Strings.concat(crash ? "_CRASH_" : "",
+                            DateUtil.format(DateUtil.FILE_FORMAT),
+                            e.getClass().getSimpleName(), ".log"));
             fos = new FileOutputStream(log);
             save(e, fos);
         } catch (Exception ignore) {
@@ -114,8 +109,28 @@ public class Logger {
         }
     }
 
+    public static void save(String msg) {
+        if ((level & SAVE) == 0) return;
+        FileOutputStream fos = null;
+        try {
+            File dataDir = Icarus.getContext().getExternalCacheDir().getParentFile();
+            File logDir = new File(dataDir, "logs");
+            if (!logDir.exists()) {
+                logDir.mkdirs();
+            }
+            File log = new File(logDir,
+                    Strings.concat(DateUtil.format(DateUtil.FILE_FORMAT), "msg.log"));
+            fos = new FileOutputStream(log);
+            fos.write(msg.getBytes());
+        } catch (Exception ignore) {
+        } finally {
+            Recycle.close(fos);
+        }
+    }
+
     public static void save(Throwable e, OutputStream os) {
-        if ((level & CRASH) == 0) return;
+        if ((level & SAVE) == 0) return;
+        if (e == null || os == null) return;
         PrintStream printStream = new PrintStream(os);
         e.printStackTrace(printStream);
         Recycle.close(printStream);
