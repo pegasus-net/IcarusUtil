@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 
 import androidx.annotation.IdRes;
+import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,11 +29,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         mWindow = getWindow();
         decorView = mWindow.getDecorView();
+        setContentView(setLayout());
         initTheme();
         initView();
         initData();
         initListener();
     }
+
+    @LayoutRes
+    protected abstract int setLayout();
 
     protected void initTheme() {
         WindowUtil.setTranslucentStatusBar(this);
