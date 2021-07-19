@@ -15,7 +15,10 @@ public class SoftInputUtil {
 
     public static void showSoftInput(View view) {
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(view,InputMethodManager.SHOW_FORCED);
+        view.setFocusable(true);
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
 
     public static void copy(String text) {

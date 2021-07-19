@@ -1,23 +1,19 @@
 package a.icarus.test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import a.icarus.utils.EmptyCheck;
-import a.icarus.utils.Logger;
-import a.icarus.utils.Strings;
+import a.icarus.utils.Maths;
 
 public class JavaTest {
     public static void main(String[] args) throws Exception {
-        Matcher regex = Strings.regex("123", "1");
+        Integer a = Maths.interval(22, 20, 10);
+        System.out.println(a);
+
+    }
+}
+
+class A implements Comparable<A> {
+
+    @Override
+    public int compareTo(A o) {
+        return 0;
     }
 }

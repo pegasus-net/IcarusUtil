@@ -2,31 +2,31 @@ package a.icarus.utils;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.CheckBox;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 @SuppressWarnings("unused")
-public class ThreadUtil {
+public class ThreadManager {
     private static ExecutorService cachePool;
     private static ScheduledExecutorService scheduledPool;
+    private static final Handler mainHandler = new Handler(Looper.getMainLooper());
+    ;
 
-    public static ExecutorService getCachePool() {
+    public static void createCachePool() {
         if (cachePool == null) {
-            synchronized (ThreadUtil.class) {
+            synchronized (ThreadManager.class) {
                 if (cachePool == null) {
                     cachePool = Executors.newCachedThreadPool();
                 }
             }
         }
-        return cachePool;
     }
 
     public static ScheduledExecutorService getScheduledPool() {
         if (scheduledPool == null) {
-            synchronized (ThreadUtil.class) {
+            synchronized (ThreadManager.class) {
                 if (scheduledPool == null) {
                     scheduledPool = Executors.newScheduledThreadPool(10);
                 }
@@ -35,17 +35,34 @@ public class ThreadUtil {
         return scheduledPool;
     }
 
+    public static void runOnThreadPool(Runnable runnable) {
+        if (cachePool == null) {
+            createCachePool();
+        }
+        if (cachePool.isShutdown()) {
+            cachePool = null;
+            createCachePool();
+        }
+        cachePool.execute(runnable);
+    }
+
+    public static void exit() {
+        if (cachePool != null) {
+            cachePool.shutdown();
+        }
+        mainHandler.removeCallbacksAndMessages(null);
+    }
+
     public static void runOnUiThread(Runnable runnable) {
         if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
             runnable.run();
             return;
         }
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(runnable);
+        mainHandler.post(runnable);
     }
 
     public static void runOnUiThreadDelay(Runnable runnable, long delay) {
         Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(runnable, delay);
+        mainHandler.postDelayed(runnable, delay);
     }
 }

@@ -1,6 +1,7 @@
 package a.icarus.utils;
 
 import android.app.ActivityManager;
+import android.app.Service;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Handler;
@@ -9,7 +10,7 @@ import android.os.Looper;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class SystemService {
+public class SystemServiceHelper {
 
     public static long getAvailableMemory(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -24,6 +25,11 @@ public class SystemService {
         manager.getMemoryInfo(info);
         return info.totalMem;
     }
+
+    public static boolean isServiceRunning(Context context, Class<? extends Service> service) {
+        return isServiceRunning(context, service.getName());
+    }
+
     public static boolean isServiceRunning(Context context, String serviceName) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningServiceInfo> serviceInfoList = manager.getRunningServices(200);
@@ -37,6 +43,7 @@ public class SystemService {
         }
         return false;
     }
+
     public static String getVersionName(Context context) {
         String versionName = "";
         try {

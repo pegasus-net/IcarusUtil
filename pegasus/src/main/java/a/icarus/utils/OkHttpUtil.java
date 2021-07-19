@@ -51,16 +51,16 @@ public class OkHttpUtil {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                ThreadUtil.runOnUiThread(() -> callback.onFailure(call, e));
+                ThreadManager.runOnUiThread(() -> callback.onFailure(call, e));
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
-                ThreadUtil.runOnUiThread(() -> {
+                ThreadManager.runOnUiThread(() -> {
                     try {
                         callback.onResponse(call, response);
                     } catch (IOException e) {
-                        ThreadUtil.runOnUiThread(() -> callback.onFailure(call, e));
+                        ThreadManager.runOnUiThread(() -> callback.onFailure(call, e));
                     }
                 });
             }
