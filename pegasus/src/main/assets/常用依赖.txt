@@ -3,6 +3,13 @@ implementation files('libs/xxx.aar')
 implementation fileTree(dir: 'libs', include: ['*.aar'])
 implementation project(path: ':xxx')
 
+在android里配置jniLibs路径
+sourceSets {
+    main {
+        jniLibs.srcDirs = ['libs']
+    }
+}
+
 自动适配屏幕
 implementation 'me.jessyan:autosize:1.2.1'
 要求：
