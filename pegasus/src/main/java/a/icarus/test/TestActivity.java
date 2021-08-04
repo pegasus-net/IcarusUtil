@@ -10,8 +10,12 @@ public class TestActivity extends BaseActivity {
     private ViewGroup rootView;
 
     @Override
+    protected int setLayout() {
+        return R.layout.test_activity;
+    }
+
+    @Override
     protected void initView() {
-        setContentView(R.layout.test_activity);
         rootView = findViewById(R.id.test_root);
     }
 

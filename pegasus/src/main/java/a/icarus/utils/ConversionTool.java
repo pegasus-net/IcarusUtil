@@ -7,9 +7,19 @@ public class ConversionTool {
         return (int) (dp * density + 0.5f);
     }
 
-    public static int px2dp(float px) {
+    public static float px2dp(int px) {
         float density = Icarus.getContext().getResources().getDisplayMetrics().density;
-        return (int) (px / density + 0.5f);
+        return px / density;
+    }
+
+    public static int sp2px(float sp) {
+        float density = Icarus.getContext().getResources().getDisplayMetrics().scaledDensity;
+        return (int) (sp * density + 0.5f);
+    }
+
+    public static float px2sp(int px) {
+        float density = Icarus.getContext().getResources().getDisplayMetrics().scaledDensity;
+        return px / density;
     }
 
     public static int float2int(float f) {

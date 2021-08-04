@@ -1,17 +1,25 @@
 package a.icarus.permission;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.provider.Settings;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import a.icarus.utils.Logger;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+@SuppressWarnings("unused")
 public class PermissionUtil {
     public static boolean checkPermission(Context context, String permission) {
         int result = context.getPackageManager().checkPermission(permission, context.getPackageName());
@@ -68,6 +76,7 @@ public class PermissionUtil {
 
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     public static boolean isIntentLegal(Context context, Intent intent) {
         return context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0;
     }
@@ -78,4 +87,26 @@ public class PermissionUtil {
         return intent;
     }
 
+    public static void requestAllPermission(Activity activity, int code) {
+        try {
+            PackageInfo packageInfo = activity.getPackageManager().getPackageInfo(activity.getPackageName(), PackageManager.GET_PERMISSIONS);
+            String[] requestedPermissions = packageInfo.requestedPermissions;
+            List<String> mPermissionList = new ArrayList<>();
+
+            for (String requestedPermission : requestedPermissions) {
+                if (ContextCompat.checkSelfPermission(activity, requestedPermission) != PackageManager.PERMISSION_GRANTED) {
+                    mPermissionList.add(requestedPermission);
+                }
+            }
+
+            String[] permissionArray = new String[mPermissionList.size()];
+            mPermissionList.toArray(permissionArray);
+
+            if (mPermissionList.size() > 0) {
+                ActivityCompat.requestPermissions(activity, permissionArray, code);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

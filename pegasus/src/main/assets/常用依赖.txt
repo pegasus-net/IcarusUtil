@@ -1,3 +1,8 @@
+本地依赖
+implementation files('libs/xxx.aar')
+implementation fileTree(dir: 'libs', include: ['*.aar'])
+implementation project(path: ':xxx')
+
 自动适配屏幕
 implementation 'me.jessyan:autosize:1.2.1'
 要求：
@@ -52,6 +57,8 @@ implementation  'com.scwang.smart:refresh-header-two-level:2.0.3'   //二级刷�
 implementation  'com.scwang.smart:refresh-footer-ball:2.0.3'        //球脉冲加载
 implementation  'com.scwang.smart:refresh-footer-classics:2.0.3'    //经典加载
 
-libs依赖
-implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
-implementation files('libs/xxx.aar')
+Hilt框架
+classpath 'com.google.dagger:hilt-android-gradle-plugin:2.37'
+apply plugin: 'dagger.hilt.android.plugin'
+implementation "com.google.dagger:hilt-android:2.37"
+annotationProcessor "com.google.dagger:hilt-android-compiler:2.37"

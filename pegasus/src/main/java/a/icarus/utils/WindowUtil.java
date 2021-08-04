@@ -35,7 +35,9 @@ public class WindowUtil {
         if (decorView != null) {
             int option = decorView.getSystemUiVisibility();
             option |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            decorView.setSystemUiVisibility(option);
+            if (decorView.getSystemUiVisibility() != option) {
+                decorView.setSystemUiVisibility(option);
+            }
         }
     }
 
@@ -44,7 +46,9 @@ public class WindowUtil {
         if (decorView != null) {
             int option = decorView.getSystemUiVisibility();
             option &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            decorView.setSystemUiVisibility(option);
+            if (decorView.getSystemUiVisibility() != option) {
+                decorView.setSystemUiVisibility(option);
+            }
         }
     }
 
@@ -53,7 +57,9 @@ public class WindowUtil {
         if (decorView != null) {
             int option = decorView.getSystemUiVisibility();
             option |= (View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            decorView.setSystemUiVisibility(option);
+            if (decorView.getSystemUiVisibility() != option) {
+                decorView.setSystemUiVisibility(option);
+            }
         }
     }
 
@@ -99,7 +105,9 @@ public class WindowUtil {
         if (decorView != null) {
             int option = decorView.getSystemUiVisibility();
             option |= (View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-            decorView.setSystemUiVisibility(option);
+            if (decorView.getSystemUiVisibility() != option) {
+                decorView.setSystemUiVisibility(option);
+            }
         }
     }
 
