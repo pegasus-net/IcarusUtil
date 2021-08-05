@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import androidx.annotation.Nullable;
+
 @SuppressWarnings("unused")
 public class FileUtil {
     public static long getSize(File file) {
@@ -84,8 +86,12 @@ public class FileUtil {
         }
     }
 
+    @Nullable
     public static Uri getUri(File file) {
         Uri uri;
+        if (file == null) {
+            return null;
+        }
         if (Build.VERSION.SDK_INT >= 24) {
             uri = FileProviderSupport.getUriForFile(Icarus.getContext(), FileProviderSupport.AUTHORITIES, file);
         } else {
