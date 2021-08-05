@@ -98,7 +98,8 @@ public class CropView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
-        renderThread = new RepeatThread(() -> {
+        renderThread = new RepeatThread(20,() -> {
+
             Canvas canvas = getHolder().lockCanvas();
             if (canvas != null) {
                 try {
@@ -548,5 +549,10 @@ public class CropView extends SurfaceView implements SurfaceHolder.Callback {
         matrixS.postTranslate(-cropArea.left, -cropArea.top);
         canvas.drawBitmap(bitmap, matrixS, new Paint());
         return result;
+    }
+    public void destroy(){
+        renderThread.cancel();
+        renderThread = null;
+        bitmap = null;
     }
 }

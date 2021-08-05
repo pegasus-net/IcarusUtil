@@ -26,6 +26,12 @@ public class SoftInputUtil {
     }
 
     public static void copy(String text, boolean notify) {
+        if (Strings.isEmpty(text)) {
+            if (notify) {
+                ToastUtil.show("复制内容不能为空");
+            }
+            return;
+        }
         ClipboardManager manager =
                 (ClipboardManager) Icarus.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
         manager.setPrimaryClip(ClipData.newPlainText("text", text));

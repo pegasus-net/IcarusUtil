@@ -5,13 +5,20 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
+import org.jetbrains.annotations.NotNull;
+
+import a.icarus.R;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import a.icarus.utils.WindowUtil;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 @SuppressWarnings("unused")
 public abstract class BaseActivity extends AppCompatActivity {
@@ -19,6 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Window mWindow;
     protected View decorView;
     protected String TAG;
+    protected final int USE_DATA_BINDING = -1;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +36,17 @@ public abstract class BaseActivity extends AppCompatActivity {
             ((MonitorApplication) application).addActivity(this);
         }
         mWindow = getWindow();
-        decorView = mWindow.getDecorView();
-        setContentView(setLayout());
         initTheme();
+
+        decorView = mWindow.getDecorView();
+
+        if (setLayout() != USE_DATA_BINDING) {
+            if (setLayout() == 0) {
+                setContentView(R.layout.empty);
+            } else {
+                setContentView(setLayout());
+            }
+        }
         initView();
         initData();
         initListener();
@@ -70,4 +86,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         findViewById(id).setOnClickListener(v -> finish());
     }
 
+    protected void setTitle(@IdRes int id, @NonNull String title) {
+        ((TextView) findViewById(id)).setText(title);
+    }
+
+    @NonNull
+    protected ViewModelProvider getViewModelProvider() {
+        return new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory());
+    }
+
+    @NonNull
+    protected ViewModelProvider getViewModelProviderAndroid() {
+        return new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(application));
+    }
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import a.icarus.utils.AppFrontBackHelper;
 import a.icarus.utils.Icarus;
 import a.icarus.utils.Logger;
+import androidx.annotation.NonNull;
 
 @SuppressWarnings("unused")
 public class MonitorApplication extends Application implements AppFrontBackHelper.OnAppStatusListener {
@@ -30,7 +31,11 @@ public class MonitorApplication extends Application implements AppFrontBackHelpe
         init();
     }
 
-    public void init() {
+    protected void init() {
+        saveException();
+    }
+
+    protected void saveException() {
         Thread.UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(((t, e) -> {
             Logger.addLevel(Logger.SAVE);
@@ -66,15 +71,15 @@ public class MonitorApplication extends Application implements AppFrontBackHelpe
         activityList.clear();
     }
 
-    protected boolean onAppFrontIgnore(Activity activity) {
+    protected boolean onAppFrontIgnore(@NonNull Activity activity) {
         return false;
     }
 
-    protected void onAppBackgroundToFront(Activity activity) {
+    protected void onAppBackgroundToFront(@NonNull Activity activity) {
 
     }
 
-    protected void onAppFrontToBackground(Activity activity) {
+    protected void onAppFrontToBackground(@NonNull Activity activity) {
 
     }
 

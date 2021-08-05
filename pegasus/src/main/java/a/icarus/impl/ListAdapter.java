@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
+import a.icarus.inter.OnEmptyListener;
 import a.icarus.utils.ConversionTool;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
@@ -28,6 +29,10 @@ abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends 
     public ListAdapter(List<T> list, @LayoutRes int layoutId) {
         this.list = list;
         this.layoutId = layoutId;
+    }
+
+    public List<T> getList() {
+        return list;
     }
 
     @Override
@@ -63,9 +68,9 @@ abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends 
 
     }
 
-    protected abstract VH onCreateViewHolder(View convertView);
+    protected abstract VH onCreateViewHolder(@NonNull View convertView);
 
-    protected abstract void onBindViewHolder(VH holder, T item, int position);
+    protected abstract void onBindViewHolder(@NonNull VH holder, @NonNull T item, int position);
 
     public static class ViewHolder {
         public final View rootView;
@@ -94,9 +99,5 @@ abstract public class ListAdapter<T, VH extends ListAdapter.ViewHolder> extends 
         if (onEmptyListener != null) {
             onEmptyListener.isEmpty(list.isEmpty());
         }
-    }
-
-    public interface OnEmptyListener {
-        void isEmpty(boolean isEmpty);
     }
 }

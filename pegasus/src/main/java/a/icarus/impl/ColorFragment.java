@@ -2,6 +2,8 @@ package a.icarus.impl;
 
 import android.view.View;
 
+import org.jetbrains.annotations.NotNull;
+
 import a.icarus.R;
 import a.icarus.component.BaseFragment;
 
@@ -19,7 +21,7 @@ public class ColorFragment extends BaseFragment {
     }
 
     @Override
-    protected void initView(View view) {
+    protected void initView(@NotNull View view) {
         rootView.setBackgroundColor(color);
 
     }

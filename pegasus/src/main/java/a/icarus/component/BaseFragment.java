@@ -14,11 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 @SuppressWarnings("unused")
 abstract public class BaseFragment extends Fragment {
 
-    protected  String TAG;
+    protected String TAG;
 
     protected View rootView;
     protected Context mContext;
@@ -68,10 +69,20 @@ abstract public class BaseFragment extends Fragment {
     protected abstract @LayoutRes
     int setLayout();
 
-    protected abstract void initView(View view);
+    protected abstract void initView(@NonNull View view);
 
     protected abstract void initData();
 
     protected abstract void initListener();
+
+    @NonNull
+    protected ViewModelProvider getViewModelProvider() {
+        return new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory());
+    }
+
+    @NonNull
+    protected ViewModelProvider getViewModelProviderAndroid() {
+        return new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(mActivity.getApplication()));
+    }
 
 }
