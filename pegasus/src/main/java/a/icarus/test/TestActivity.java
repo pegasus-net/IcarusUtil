@@ -10,7 +10,7 @@ public class TestActivity extends BaseActivity {
     private ViewGroup rootView;
 
     @Override
-    protected int setLayout() {
+    protected int bindLayout() {
         return R.layout.test_activity;
     }
 

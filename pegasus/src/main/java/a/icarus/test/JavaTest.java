@@ -10,10 +10,3 @@ public class JavaTest {
     }
 }
 
-class A implements Comparable<A> {
-
-    @Override
-    public int compareTo(A o) {
-        return 0;
-    }
-}

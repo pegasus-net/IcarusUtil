@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import org.jetbrains.annotations.NotNull;
-
 import a.icarus.R;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
@@ -17,7 +15,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import a.icarus.utils.WindowUtil;
-import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 @SuppressWarnings("unused")
@@ -40,11 +37,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         decorView = mWindow.getDecorView();
 
-        if (setLayout() != USE_DATA_BINDING) {
-            if (setLayout() == 0) {
+        if (bindLayout() != USE_DATA_BINDING) {
+            if (bindLayout() == 0) {
                 setContentView(R.layout.empty);
             } else {
-                setContentView(setLayout());
+                setContentView(bindLayout());
             }
         }
         initView();
@@ -53,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @LayoutRes
-    protected abstract int setLayout();
+    protected abstract int bindLayout();
 
     protected void initTheme() {
         WindowUtil.setTranslucentStatusBar(this);
